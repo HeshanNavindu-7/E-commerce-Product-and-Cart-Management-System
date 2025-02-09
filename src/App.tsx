@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import ProductList from './pages/ProductList';
 import Cart from './pages/Cart';
 import OrderConfirmation from './pages/OrderConfirmation';
+import AdminDashboard from './pages/admin/AdminDashboard';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<ProductList />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/order-confirmation" element={<OrderConfirmation />} />
+            <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
           <Toaster position="bottom-right" />
         </div>
