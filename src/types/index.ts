@@ -6,11 +6,18 @@ export interface Product {
   quantityInStock: number;
 }
 
-
-
-export interface CartItem extends Product {
+export interface CartItem {
+  id: number;
+  productId: number; // ✅ Ensure this is included
+  productName: string;
+  price: number;
   quantity: number;
 }
+
+// ✅ Create a new type for adding items to the cart
+export type AddCartItemRequest = Omit<CartItem, 'id'>;
+
+
 
 export interface RootState {
   cart: {

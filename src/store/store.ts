@@ -7,5 +7,6 @@ export const store = configureStore({
   },
 });
 
+// ✅ Define correct types for `useDispatch`
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

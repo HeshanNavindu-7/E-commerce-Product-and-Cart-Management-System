@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, Home } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../types';
@@ -7,6 +7,12 @@ import { RootState } from '../types';
 export default function Navbar() {
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const navigate = useNavigate();
+
+  // ✅ Navigate to cart when the cart icon is clicked
+  const handleCartClick = () => {
+    navigate('/cart');
+  };
 
   return (
     <nav className="bg-white shadow-lg">
@@ -19,14 +25,14 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="flex items-center">
-            <Link to="/cart" className="relative p-2">
+            <button onClick={handleCartClick} className="relative p-2">
               <ShoppingCart className="h-6 w-6 text-gray-600" />
               {itemCount > 0 && (
                 <span className="absolute top-0 right-0 bg-indigo-600 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs">
                   {itemCount}
                 </span>
               )}
-            </Link>
+            </button>
           </div>
         </div>
       </div>

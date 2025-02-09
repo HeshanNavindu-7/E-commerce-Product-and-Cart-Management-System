@@ -4,26 +4,34 @@ import { ShoppingCart } from 'lucide-react';
 import { Product } from '../types';
 import { addToCart } from '../store/cartSlice';
 import toast from 'react-hot-toast';
+import { AppDispatch } from '../store/store';
+ // ✅ Import `AppDispatch`
 
 interface ProductCardProps {
   product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>(); // ✅ Use correct dispatch type
 
   const handleAddToCart = () => {
-    dispatch(addToCart(product));
-    toast.success('Added to cart!');
+    dispatch(addToCart(product))
+      .unwrap() // ✅ Unwrap the promise to handle errors correctly
+      .then(() => {
+        toast.success('Added to cart!');
+      })
+      .catch((error) => {
+        toast.error(error || 'Failed to add to cart');
+      });
   };
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
-     <img
-  // src={product.image || 'https://via.placeholder.com/150'}
-  alt={product.name}
-  className="w-full h-48 object-cover"
-/>
+      <img
+        // src={product.image || 'https://via.placeholder.com/150'}
+        alt={product.name}
+        className="w-full h-48 object-cover"
+      />
 
       <div className="p-4">
         <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>

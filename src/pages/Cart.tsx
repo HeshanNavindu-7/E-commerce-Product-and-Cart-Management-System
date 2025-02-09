@@ -1,23 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Trash2, Plus, Minus } from 'lucide-react';
-import { RootState } from '../types';
-import { removeFromCart, updateQuantity, clearCart } from '../store/cartSlice';
+import { loadCart, updateQuantity, removeFromCart, clearCart } from '../store/cartSlice';
 import toast from 'react-hot-toast';
+import { RootState } from '../types'; // ✅ Import RootState correctly
+import { AppDispatch } from '../store/store'; // ✅ Correct dispatch type
 
 export default function Cart() {
-  const dispatch = useDispatch();
+  // ✅ Explicitly type `dispatch`
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const cartItems = useSelector((state: RootState) => state.cart.items);
-  
+
+  useEffect(() => {
+    dispatch(loadCart()); // ✅ Correctly implemented
+  }, [dispatch]);
+
+  // ✅ Explicitly specify the types for `reduce()`
   const total = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum: number, item: { price: number; quantity: number }) => sum + item.price * item.quantity,
     0
   );
 
   const handleQuantityChange = (id: number, newQuantity: number) => {
-    dispatch(updateQuantity({ id, quantity: newQuantity }));
+    if (newQuantity > 0) {
+      dispatch(updateQuantity({ id, newQuantity }));
+    } else {
+      toast.error('Quantity must be at least 1.');
+    }
   };
 
   const handleRemove = (id: number) => {
@@ -52,17 +63,9 @@ export default function Cart() {
       <h1 className="text-3xl font-bold text-gray-900 mb-8">Shopping Cart</h1>
       <div className="bg-white rounded-lg shadow-md p-6">
         {cartItems.map((item) => (
-          <div
-            key={item.id}
-            className="flex items-center py-4 border-b last:border-b-0"
-          >
-            <img
-              src={item.image}
-              alt={item.name}
-              className="w-24 h-24 object-cover rounded"
-            />
+          <div key={item.id} className="flex items-center py-4 border-b last:border-b-0">
             <div className="flex-1 ml-4">
-              <h3 className="text-lg font-semibold">{item.name}</h3>
+              <h3 className="text-lg font-semibold">{item.productName}</h3>
               <p className="text-gray-600">${item.price.toFixed(2)}</p>
             </div>
             <div className="flex items-center space-x-4">
