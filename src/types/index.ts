@@ -24,3 +24,10 @@ export interface RootState {
     items: CartItem[];
   };
 }
+
+export interface Order {
+  id: number;
+  orderDate: string; // ISO 8601 string
+  items: CartItem[]; // Array of cart items
+  totalPrice: number;
+}

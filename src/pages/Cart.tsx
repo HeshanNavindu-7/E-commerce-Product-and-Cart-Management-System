@@ -3,25 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Trash2, Plus, Minus } from 'lucide-react';
 import { loadCart, updateQuantity, removeFromCart, clearCart } from '../store/cartSlice';
+import { createOrder } from '../store/orderSlice';
 import toast from 'react-hot-toast';
-import { RootState } from '../types'; // ✅ Import RootState correctly
-import { AppDispatch } from '../store/store'; // ✅ Correct dispatch type
+import { RootState } from '../types';
+import { AppDispatch } from '../store/store';
 
 export default function Cart() {
-  // ✅ Explicitly type `dispatch`
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const cartItems = useSelector((state: RootState) => state.cart.items);
 
   useEffect(() => {
-    dispatch(loadCart()); // ✅ Correctly implemented
+    dispatch(loadCart()); // Load cart on component mount
   }, [dispatch]);
 
-  // ✅ Explicitly specify the types for `reduce()`
-  const total = cartItems.reduce(
-    (sum: number, item: { price: number; quantity: number }) => sum + item.price * item.quantity,
-    0
-  );
+  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleQuantityChange = (id: number, newQuantity: number) => {
     if (newQuantity > 0) {
@@ -36,10 +32,23 @@ export default function Cart() {
     toast.success('Item removed from cart');
   };
 
-  const handleCheckout = () => {
-    dispatch(clearCart());
-    toast.success('Order placed successfully!');
-    navigate('/order-confirmation');
+  const handleCheckout = async () => {
+    try {
+      await dispatch(createOrder()).unwrap(); // Place the order
+
+      dispatch(clearCart()); // ✅ Clear cart after successful order
+
+      toast.success('Order placed successfully!');
+      navigate('/order-confirmation'); // Redirect to confirmation page
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Order placement error:', error.message);
+        toast.error(error.message);
+      } else {
+        console.error('Unknown error occurred:', error);
+        toast.error('Failed to place order. Please try again.');
+      }
+    }
   };
 
   if (cartItems.length === 0) {
