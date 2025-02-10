@@ -54,7 +54,7 @@ Ensure you have:
 ### ✅ Order Confirmation
 ![Order Confirmation](./screenshot/114.PNG)
 
-### ✅ Order Confirmation
-![Order Confirmation](./screenshot/116.PNG)
+### ✅ Admin Dashboard
+![Admin Dashboard](./screenshot/116.PNG)
 
 ---
