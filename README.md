@@ -12,13 +12,13 @@ This is a **React, Redux, and Node.js-powered E-Commerce application** where use
 ---
 
 ## ✨ Features
-### ✅ User Features
+### User Features
 - 📦 **Browse Products**: View product listings with descriptions and prices.
 - 🛒 **Manage Cart**: Add/remove/update cart items.
 - 💳 **Checkout & Order Placement**: Place orders and receive confirmation.
 - 🌦 **Weather Forecast**: Fetch and display live weather updates.
 
-### ✅ Admin Features
+###  Admin Features
 - 🏬 **Manage Inventory**: Admins can manage stock levels.
 - 📋 **View Orders**: Admins can track placed orders.
 
@@ -33,5 +33,25 @@ Ensure you have:
 ### **Installation Steps**
 1. **Clone the repository**
    ```sh
-   git clone https://github.com/your-repository.git
+   git clone [https://github.com/your-repository.git](https://github.com/HeshanNavindu-7/E-commerce-Product-and-Cart-Management-System.git)
    cd your-repository
+2. **Install dependencies**
+   ```sh
+   npm install
+
+2. **Start the development server**
+   ```sh
+   npm run dev
+
+---
+### Screenshots
+### 🏠 Home Page (Product List)
+![Home Page](./screenshot/113.png)
+
+### 🛒 Cart Page
+![Cart Page](./screenshot/114.png)
+
+### ✅ Order Confirmation
+![Order Confirmation](./screenshot/116.png)
+
+---
