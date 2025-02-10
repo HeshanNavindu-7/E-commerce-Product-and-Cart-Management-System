@@ -31,3 +31,9 @@ export interface Order {
   items: CartItem[]; // Array of cart items
   totalPrice: number;
 }
+export interface WeatherForecast {
+  date: string;
+  temperatureC: number;
+  temperatureF: number;
+  summary: string;
+}

@@ -8,6 +8,7 @@ import ProductList from './pages/ProductList';
 import Cart from './pages/Cart';
 import OrderConfirmation from './pages/OrderConfirmation';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import WeatherForecast from './components/WeatherForecast';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/order-confirmation" element={<OrderConfirmation />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/weatherForecast" element={<WeatherForecast />} />
           </Routes>
           <Toaster position="bottom-right" />
         </div>

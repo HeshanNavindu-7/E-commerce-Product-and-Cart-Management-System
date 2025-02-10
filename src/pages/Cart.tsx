@@ -13,10 +13,12 @@ export default function Cart() {
   const navigate = useNavigate();
   const cartItems = useSelector((state: RootState) => state.cart.items);
 
+  // Load cart on component mount
   useEffect(() => {
-    dispatch(loadCart()); // Load cart on component mount
+    dispatch(loadCart());
   }, [dispatch]);
 
+  // Calculate total price of items in the cart
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleQuantityChange = (id: number, newQuantity: number) => {
@@ -34,23 +36,24 @@ export default function Cart() {
 
   const handleCheckout = async () => {
     try {
-      await dispatch(createOrder()).unwrap(); // Place the order
-
-      dispatch(clearCart()); // ✅ Clear cart after successful order
+      // Place order and clear cart on success
+      await dispatch(createOrder()).unwrap();
+      dispatch(clearCart());
 
       toast.success('Order placed successfully!');
       navigate('/order-confirmation'); // Redirect to confirmation page
     } catch (error) {
       if (error instanceof Error) {
         console.error('Order placement error:', error.message);
-        toast.error(error.message);
+        toast.error(error.message || 'Failed to place order. Please try again.');
       } else {
-        console.error('Unknown error occurred:', error);
+        console.error('Unknown error:', error);
         toast.error('Failed to place order. Please try again.');
       }
     }
   };
 
+  // Render empty cart UI if no items in the cart
   if (cartItems.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
