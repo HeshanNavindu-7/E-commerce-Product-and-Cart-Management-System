@@ -46,12 +46,15 @@ Ensure you have:
 ---
 ### Screenshots
 ### 🏠 Home Page (Product List)
-![Home Page](./screenshot/113.png)
+![Home Page](./screenshot/112.PNG)
 
 ### 🛒 Cart Page
-![Cart Page](./screenshot/114.png)
+![Cart Page](./screenshot/113.PNG)
 
 ### ✅ Order Confirmation
-![Order Confirmation](./screenshot/116.png)
+![Order Confirmation](./screenshot/114.PNG)
+
+### ✅ Order Confirmation
+![Order Confirmation](./screenshot/116.PNG)
 
 ---
