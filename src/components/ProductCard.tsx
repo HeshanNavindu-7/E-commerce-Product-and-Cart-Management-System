@@ -5,18 +5,18 @@ import { Product } from '../types';
 import { addToCart } from '../store/cartSlice';
 import toast from 'react-hot-toast';
 import { AppDispatch } from '../store/store';
- // ✅ Import `AppDispatch`
+ 
 
 interface ProductCardProps {
   product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const dispatch = useDispatch<AppDispatch>(); // ✅ Use correct dispatch type
+  const dispatch = useDispatch<AppDispatch>(); // Use correct dispatch type
 
   const handleAddToCart = () => {
     dispatch(addToCart(product))
-      .unwrap() // ✅ Unwrap the promise to handle errors correctly
+      .unwrap() //  Unwrap the promise to handle errors correctly
       .then(() => {
         toast.success('Added to cart!');
       })
@@ -35,7 +35,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     case 'Headphones':
       return '/image/head.jpg';
     default:
-      return './image/logo.png'; // Default placeholder
+      return './image/logo.png'; // Default 
   }
 };
   return (

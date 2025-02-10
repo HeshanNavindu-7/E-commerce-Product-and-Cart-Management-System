@@ -14,7 +14,7 @@ const initialState: CartState = {
   error: null,
 };
 
-// ✅ Load Cart Items from Backend
+// Load  Items from Backend
 export const loadCart = createAsyncThunk('cart/loadCart', async (_, { rejectWithValue }) => {
   try {
     return await fetchCartItems();
@@ -23,14 +23,14 @@ export const loadCart = createAsyncThunk('cart/loadCart', async (_, { rejectWith
   }
 });
 
-// ✅ Add Item to Cart
+// Add Item to Cart
 export const addToCart = createAsyncThunk('cart/addToCart', async (product: Product, { rejectWithValue }) => {
   try {
     const cartItem: AddCartItemRequest = {
-      productId: product.id, // ✅ Backend expects `productId`
+      productId: product.id, 
       productName: product.name,
       price: product.price,
-      quantity: 1, // Default to adding one item
+      quantity: 1, // Default 
     };
     return await addCartItem(cartItem);
   } catch (error: unknown) {
@@ -38,7 +38,7 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (product: Prod
   }
 });
 
-// ✅ Update Item Quantity in Cart
+// Update Item Quantity in Cart
 export const updateQuantity = createAsyncThunk(
   'cart/updateQuantity',
   async ({ id, newQuantity }: { id: number; newQuantity: number }, { rejectWithValue }) => {
@@ -50,17 +50,17 @@ export const updateQuantity = createAsyncThunk(
   }
 );
 
-// ✅ Remove Item from Cart
+// Remove Item from Cart
 export const removeFromCart = createAsyncThunk('cart/removeFromCart', async (id: number, { rejectWithValue }) => {
   try {
     await removeCartItem(id);
-    return id; // Return removed item ID
+    return id; 
   } catch (error: unknown) {
     return rejectWithValue((error as Error).message || 'Failed to remove from cart');
   }
 });
 
-// ✅ Redux Cart Slice
+// Redux Cart Slice
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -72,7 +72,7 @@ const cartSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // ✅ Load Cart
+      // Load Cart
       .addCase(loadCart.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -86,7 +86,7 @@ const cartSlice = createSlice({
         state.error = action.payload as string;
       })
 
-      // ✅ Add Item to Cart
+      // Add Item to Cart
       .addCase(addToCart.fulfilled, (state, action) => {
         state.items.push(action.payload);
       })
@@ -94,7 +94,7 @@ const cartSlice = createSlice({
         state.error = action.payload as string;
       })
 
-      // ✅ Update Quantity
+      // Update Quantity
       .addCase(updateQuantity.fulfilled, (state, action) => {
         const index = state.items.findIndex((item) => item.id === action.payload.id);
         if (index !== -1) {
@@ -105,7 +105,7 @@ const cartSlice = createSlice({
         state.error = action.payload as string;
       })
 
-      // ✅ Remove Item from Cart
+      // Remove Item from Cart
       .addCase(removeFromCart.fulfilled, (state, action) => {
         state.items = state.items.filter((item) => item.id !== action.payload);
       })

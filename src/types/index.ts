@@ -8,13 +8,13 @@ export interface Product {
 
 export interface CartItem {
   id: number;
-  productId: number; // ✅ Ensure this is included
+  productId: number; 
   productName: string;
   price: number;
   quantity: number;
 }
 
-// ✅ Create a new type for adding items to the cart
+//  Create a new type for adding items to the cart
 export type AddCartItemRequest = Omit<CartItem, 'id'>;
 
 
@@ -27,8 +27,8 @@ export interface RootState {
 
 export interface Order {
   id: number;
-  orderDate: string; // ISO 8601 string
-  items: CartItem[]; // Array of cart items
+  orderDate: string; 
+  items: CartItem[]; 
   totalPrice: number;
 }
 export interface WeatherForecast {

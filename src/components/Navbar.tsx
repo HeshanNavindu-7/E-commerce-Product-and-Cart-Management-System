@@ -9,7 +9,7 @@ export default function Navbar() {
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   const navigate = useNavigate();
 
-  // ✅ Navigate to cart when the cart icon is clicked
+  
   const handleCartClick = () => {
     navigate('/cart');
   };

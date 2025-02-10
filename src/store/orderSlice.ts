@@ -14,7 +14,7 @@ const initialState: OrderState = {
   error: null,
 };
 
-// ✅ Fix `createOrder` to remove `any` type
+
 export const createOrder = createAsyncThunk<Order, void, { rejectValue: string }>(
   'order/createOrder',
   async (_, { rejectWithValue }) => {
