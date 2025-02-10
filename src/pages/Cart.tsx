@@ -13,14 +13,15 @@ export default function Cart() {
   const navigate = useNavigate();
   const cartItems = useSelector((state: RootState) => state.cart.items);
 
-  // Load cart on component mount
+  // Load the cart from the backend on component mount
   useEffect(() => {
     dispatch(loadCart());
   }, [dispatch]);
 
-  // Calculate total price of items in the cart
+  // Calculate the total price
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
+  // Handle quantity changes
   const handleQuantityChange = (id: number, newQuantity: number) => {
     if (newQuantity > 0) {
       dispatch(updateQuantity({ id, newQuantity }));
@@ -29,31 +30,36 @@ export default function Cart() {
     }
   };
 
+  // Handle removing an item from the cart
   const handleRemove = (id: number) => {
     dispatch(removeFromCart(id));
     toast.success('Item removed from cart');
   };
 
+  // Handle placing an order
   const handleCheckout = async () => {
     try {
-      // Place order and clear cart on success
+      // Place the order
       await dispatch(createOrder()).unwrap();
+
+      // Clear the cart after a successful order
       dispatch(clearCart());
 
+      // Notify the user and navigate to the confirmation page
       toast.success('Order placed successfully!');
-      navigate('/order-confirmation'); // Redirect to confirmation page
+      navigate('/order-confirmation');
     } catch (error) {
       if (error instanceof Error) {
         console.error('Order placement error:', error.message);
         toast.error(error.message || 'Failed to place order. Please try again.');
       } else {
-        console.error('Unknown error:', error);
+        console.error('Unknown error occurred:', error);
         toast.error('Failed to place order. Please try again.');
       }
     }
   };
 
-  // Render empty cart UI if no items in the cart
+  // Render empty cart message if there are no items
   if (cartItems.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

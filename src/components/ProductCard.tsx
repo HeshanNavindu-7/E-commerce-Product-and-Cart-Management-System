@@ -24,11 +24,24 @@ export default function ProductCard({ product }: ProductCardProps) {
         toast.error(error || 'Failed to add to cart');
       });
   };
-
+ // Assign a default or static image path based on product name
+ const getImagePath = (productName: string) => {
+  switch (productName) {
+    case 'Laptop':
+      return './image/lap.webp';
+    
+    case 'Smartphone':
+      return './image/phone.webp';
+    case 'Headphones':
+      return '/image/head.jpg';
+    default:
+      return './image/logo.png'; // Default placeholder
+  }
+};
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
-      <img
-        // src={product.image || 'https://via.placeholder.com/150'}
+     <img
+        src={getImagePath(product.name)} // Get image path based on product name
         alt={product.name}
         className="w-full h-48 object-cover"
       />
