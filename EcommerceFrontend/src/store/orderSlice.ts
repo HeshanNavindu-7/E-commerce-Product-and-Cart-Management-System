@@ -2,19 +2,20 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { Order } from '../types';
 import { placeOrder } from '../api/order';
 
+
 interface OrderState {
   order: Order | null;
   loading: boolean;
   error: string | null;
 }
-
+//initiaalize redux state
 const initialState: OrderState = {
   order: null,
   loading: false,
   error: null,
 };
 
-
+//handlinf async order creation
 export const createOrder = createAsyncThunk<Order, void, { rejectValue: string }>(
   'order/createOrder',
   async (_, { rejectWithValue }) => {
